@@ -1,0 +1,134 @@
+
+CREATE TABLE `user` (
+	`user_pid` 	bigint 	NOT NULL   Auto_Increment  PRIMARY KEY,
+	`user_id`	varchar(100) 	 NULL,
+	`user_pw`	varchar(100) NULL,
+	`user_name`	varchar(100) 	NULL,
+	`user_email`	varchar(100) 	NULL,
+	`user_token`	varchar(1000) 	NULL,
+	`user_createday`	date 	NULL,
+	`user_joinday`	date 	NULL
+)default character set utf8 collate utf8_general_ci;
+
+CREATE TABLE `user_info` (
+	`user_info_pid`	bigint 	NOT NULL Auto_Increment PRIMARY KEY,
+	`user_token`	varchar(1000) 	NULL,
+	`user_nickname`	varchar(100) 	NULL,
+	`user_stage`	int	 NULL,
+	`user_level`	int	 NULL,
+	`user_exp`	int	 NULL,
+	`user_ap`	int	 NULL,
+	`user_speed`	int	 NULL,
+	`user_hp`	int	 NULL,
+	`user_def`	int	 NULL,
+	`user_mp`	int	 NULL,
+	`user_money` 	int 	 NULL,
+	`user_fix_day`	date	 NULL,
+	`user_joinday`	date	 NULL
+)default character set utf8 collate utf8_general_ci;
+
+CREATE TABLE `user_bag` (
+	`user_bag_pid`	bigint 	NOT NULL Auto_Increment PRIMARY KEY,
+	`user_token`	varchar(1000) 	NULL,
+	`user_bag_slot`	int 	NULL,
+	`user_bag_items`	varchar(1000) 	NULL,
+	`user_bag_fix_day`	date 	NULL,
+	`user_bag_joinday`	date 	NULL
+)default character set utf8 collate utf8_general_ci;
+
+CREATE TABLE `item` (
+	`item_pid`	bigint 	NOT NULL Auto_Increment PRIMARY KEY,
+	`item_name`	varchar(1000) 	NULL,
+	`item_info`	varchar(1000) 	NULL,
+	`item_cut_level`	int 	NULL,
+	`item_ap`	int 	NULL,
+	`item_hp`	int	 NULL,
+	`item_def`	int	  NULL,
+	`item_mp`	int 	NULL,
+	`item_money`	int 	NULL,
+	`item_rank`	varchar(100)	 NULL,
+	`item_per`	int	 NULL,
+	`item_createday`	date 	NULL
+)default character set utf8 collate utf8_general_ci;
+
+CREATE TABLE `monster` (
+	`monster_pid`	bigint 	NOT NULL Auto_Increment PRIMARY KEY,
+	`item_pid`	bigint 	NULL,
+	`monster_stage`	int	 NULL,
+	`monster_name`	varchar(1000) 	NULL,
+	`monster_info`	varchar(1000) 	NULL,
+	`monster_level`	int	 NULL,
+	`monster_exp`	int	 NULL,
+	`monster_ap`	int	 NULL,
+	`monster_speed`	int	 NULL,
+	`monster_hp`	int	 NULL,
+	`monster_def`	int	 NULL,
+	`monster_mp`	int 	NULL,
+	`monster_money`	int 	NULL,
+	`monster_createday`	date 	NULL
+)default character set utf8 collate utf8_general_ci;
+
+CREATE TABLE `skill` (
+	`user_skill` 	bigint 	NOT NULL Auto_Increment PRIMARY KEY,
+	`skill_name` 	varchar(1000) 	NULL,
+	`skill_info` 	varchar(1000) 	NULL,
+	`skill_ap` 	int	 NULL,
+	`skill_speed`	int	  NULL,
+	`skill_hp` 	int	  NULL,
+	`skill_def` 	int	 NULL,
+	`skill_mp` 	int 	NULL
+)default character set utf8 collate utf8_general_ci;
+
+CREATE TABLE `user_skill` (
+	`user_skill` 	bigint 	NOT NULL Auto_Increment PRIMARY KEY,
+	`user_token` 	varchar(1000) 	NULL,
+	`user_skill_slot`	 int	 NULL,
+	`user_skill_mounting` 	varchar(1000) 	NULL,
+	`user_skill_fix_day` 	date 	NULL
+)default character set utf8 collate utf8_general_ci;
+
+
+CREATE TABLE `wearing_item` (
+	`wearing_pid` 	bigint  	NOT NULL Auto_Increment PRIMARY KEY,
+	`user_token` 	varchar(1000) 	NULL,
+	`wearing_items` 	varchar(1000) 	NULL,
+	`wearing_hp` 	int 	NULL,
+	`wearing_ap` 	int 	NULL,
+	`wearing_def` 	int	 NULL,
+	`wearing_mp` 	int 	NULL
+)default character set utf8 collate utf8_general_ci;
+
+CREATE TABLE `shop` (
+	`shop_pid` 	bigint 	NOT NULL Auto_Increment PRIMARY KEY,
+	`item_pid` 	bigint 	NULL,
+	`shop_createday` 	date 	NULL
+);
+
+CREATE TABLE `shop_cate` (
+	`cate_pid` 	bigint 	NOT NULL Auto_Increment PRIMARY KEY,
+	`cate` 	varchar(100) 	NULL,
+	`shop_pid` 	bigint 	NULL
+);
+
+INSERT INTO monster (`item_pid`, `monster_stage`, `monster_name`, `monster_info`, `monster_ap`, `monster_speed`, `monster_hp`, `monster_def`, `monster_mp`, `monster_money`, `monster_level`)
+VALUES
+(1,1,'슬라임', '약한 몬스터', 10, 2, 20, 0, 0, 1000, 1),
+(2,1,'고블린', '중간 몬스터', 30, 4, 50, 5, 0, 2000, 2),
+(1,2,'오크', '강한 몬스터', 60, 4, 100, 10, 0, 3000, 3),
+(1,2,'골렘', '매우 강한 몬스터', 100, 3, 150, 15, 0, 4000, 4);
+
+INSERT INTO item (`item_name`, `item_info`, `item_cut_level`, `item_ap`, `item_hp`, `item_def`, `item_mp`, `item_money`, `item_rank`, `item_per`, `item_createday`)
+VALUES
+('철검', '기본적인 검', 1, 10, 0, 0, 0, 1000, '일반', 50, '2022-01-01'),
+('가죽 갑옷', '가죽으로 만든 갑옷', 1, 0, 20, 5, 0, 2000, '일반', 30, '2022-01-01'),
+('마나 물약', '마나를 회복하는 물약', 1, 0, 0, 0, 30, 3000, '일반', 70, '2022-01-01');
+('test', 'test', 1, 0, 0, 0, 30, 3000, 'test', 70, '2022-01-01');
+
+-- 스킬 데이터
+INSERT INTO skill (`skill_name`, `skill_info`, `skill_ap`, `skill_speed`, `skill_hp`, `skill_def`, `skill_mp`)
+VALUES
+('화염법사', '화염 속성 공격 스킬', 50, 3, 0, 0, 20),
+('회복마법', '체력 회복 스킬', 0, 2, 50, 0, 30),
+('방어마법', '방어력 증가 스킬', 0, 2, 0, 20, 10);
+
+ mysql -h 3.36.111.61 -u admin -P 55999 -p game
